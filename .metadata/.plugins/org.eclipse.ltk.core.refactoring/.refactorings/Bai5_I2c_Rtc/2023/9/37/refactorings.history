@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Bai5_I2c_Rtc/Bai4_Lcd_Fsm_Flag.ioc&apos; to &apos;Bai5_I2c_Rtc.ioc&apos;" description="Rename resource &apos;Bai4_Lcd_Fsm_Flag.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Bai4_Lcd_Fsm_Flag.ioc" name="Bai5_I2c_Rtc.ioc" stamp="1694661869405" updateReferences="true"/>
+</session>

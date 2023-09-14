@@ -1,0 +1,20 @@
+16:06:25 **** Build of configuration Debug for project Bai3_Led7seg_Button ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Bai3_Led7seg_Button.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\abc\stm32\kitv2\Bai3_Led7seg_Button\STM32F407ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai3_Led7seg_Button.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai3_Led7seg_Button.elf
+ 
+arm-none-eabi-size   Bai3_Led7seg_Button.elf 
+arm-none-eabi-objdump -h -S  Bai3_Led7seg_Button.elf  > "Bai3_Led7seg_Button.list"
+arm-none-eabi-objcopy  -O binary  Bai3_Led7seg_Button.elf  "Bai3_Led7seg_Button.bin"
+   text	   data	    bss	    dec	    hex	filename
+  13468	     36	   1780	  15284	   3bb4	Bai3_Led7seg_Button.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai3_Led7seg_Button.bin
+ 
+Finished building: Bai3_Led7seg_Button.list
+ 
+
+16:06:26 Build Finished. 0 errors, 0 warnings. (took 668ms)
+

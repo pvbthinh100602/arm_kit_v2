@@ -1,0 +1,10 @@
+15:37:29 **** Incremental Build of configuration Debug for project Bai4_Lcd_Fsm_Flag ****
+make -j16 all 
+arm-none-eabi-size   Bai4_Lcd_Fsm_Flag.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51472	     44	   1932	  53448	   d0c8	Bai4_Lcd_Fsm_Flag.elf
+Finished building: default.size.stdout
+ 
+
+15:37:29 Build Finished. 0 errors, 0 warnings. (took 217ms)
+

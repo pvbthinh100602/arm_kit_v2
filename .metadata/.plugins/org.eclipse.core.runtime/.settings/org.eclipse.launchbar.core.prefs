@@ -1,0 +1,11 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai1_Gpio_Delay,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai2_Timer,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:test_kit Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:test_kit_v2 Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:PasswordDoor Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai10_TFT_LCD_1 Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai4_Lcd_Fsm_Flag,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai3_Led7seg_Button,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai5_I2c_Rtc
+eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai10_TFT_LCD_1\ Debug/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai10_TFT_LCD_1\ Debug/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai1_Gpio_Delay/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Bai1_Gpio_Delay/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:test_kit_v2\ Debug/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:test_kit_v2\ Debug/activeLaunchTarget=null\:---

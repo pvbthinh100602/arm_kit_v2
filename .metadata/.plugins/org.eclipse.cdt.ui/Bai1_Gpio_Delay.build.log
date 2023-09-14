@@ -1,0 +1,10 @@
+16:17:09 **** Incremental Build of configuration Debug for project Bai1_Gpio_Delay ****
+make -j16 all 
+arm-none-eabi-size   Bai1_Gpio_Delay.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6008	     20	   1572	   7600	   1db0	Bai1_Gpio_Delay.elf
+Finished building: default.size.stdout
+ 
+
+16:17:09 Build Finished. 0 errors, 0 warnings. (took 236ms)
+

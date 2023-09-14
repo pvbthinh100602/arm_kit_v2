@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Bai4_Lcd_Fsm_Flag/Bai4_Lcd_Fsm.ioc&apos; to &apos;Bai4_Lcd_Fsm_Flag.ioc&apos;" description="Rename resource &apos;Bai4_Lcd_Fsm.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Bai4_Lcd_Fsm.ioc" name="Bai4_Lcd_Fsm_Flag.ioc" stamp="1694660807505" updateReferences="true"/>
+</session>

@@ -1,0 +1,10 @@
+16:17:09 **** Incremental Build of configuration Debug for project Bai2_Timer ****
+make -j16 all 
+arm-none-eabi-size   Bai2_Timer.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9080	     20	   1652	  10752	   2a00	Bai2_Timer.elf
+Finished building: default.size.stdout
+ 
+
+16:17:10 Build Finished. 0 errors, 0 warnings. (took 254ms)
+
