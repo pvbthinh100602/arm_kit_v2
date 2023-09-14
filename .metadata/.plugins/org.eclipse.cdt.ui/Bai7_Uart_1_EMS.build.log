@@ -1,0 +1,229 @@
+01:40:09 **** Incremental Build of configuration Debug for project Bai7_Uart_1_EMS ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:177:24: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  177 |   uart_Rs232SendString("Xin chao lop vdk");
+      |                        ^~~~~~~~~~~~~~~~~~
+      |                        |
+      |                        char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c: In function 'GetSensor':
+../Core/Src/main.c:281:17: warning: array subscript has type 'char' [-Wchar-subscripts]
+  281 |     dataOfSensor[indexOfData] = rawSensor;
+      |                 ^
+../Core/Src/main.c:288:57: warning: array subscript has type 'char' [-Wchar-subscripts]
+  288 |         averageSensor_0 = averageSensor_0 + dataOfSensor[indexOfData_10];
+      |                                                         ^
+../Core/Src/main.c:296:27: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  296 |     lcd_ShowStr(20, 270,  "Alarm:", BRED, BLACK, 16, 0);
+      |                           ^~~~~~~~
+      |                           |
+      |                           char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:297:38: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  297 |     if(alarm) lcd_ShowStr(180, 270,  "ON ", BRED, BLACK, 16, 0);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:298:33: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  298 |     else lcd_ShowStr(180, 270,  "OFF", BRED, BLACK, 16, 0);
+      |                                 ^~~~~
+      |                                 |
+      |                                 char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c: In function 'SimulateFull_Gimat':
+../Core/Src/main.c:325:30: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  325 |         lcd_ShowStr(20, 30,  "ADC value:", GREEN, BLACK, 16, 0);
+      |                              ^~~~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:327:30: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  327 |         lcd_ShowStr(20, 60,  "pH value:", WHITE, BLACK, 16, 0);
+      |                              ^~~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:329:30: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  329 |         lcd_ShowStr(20, 90,  "SS value:", WHITE, BLACK, 16, 0);
+      |                              ^~~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:331:31: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  331 |         lcd_ShowStr(20, 120,  "CSB value:", WHITE, BLACK, 16, 0);
+      |                               ^~~~~~~~~~~~
+      |                               |
+      |                               char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:333:31: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  333 |         lcd_ShowStr(20, 150,  "Temperature value:", RED, BLACK, 16, 0);
+      |                               ^~~~~~~~~~~~~~~~~~~~
+      |                               |
+      |                               char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:335:31: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  335 |         lcd_ShowStr(20, 180,  "NH4 value:", WHITE, BLACK, 16, 0);
+      |                               ^~~~~~~~~~~~
+      |                               |
+      |                               char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:337:31: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  337 |         lcd_ShowStr(20, 210,  "NO3 value:", WHITE, BLACK, 16, 0);
+      |                               ^~~~~~~~~~~~
+      |                               |
+      |                               char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:339:31: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  339 |         lcd_ShowStr(20, 240,  "FLOW value:", WHITE, BLACK, 16, 0);
+      |                               ^~~~~~~~~~~~~
+      |                               |
+      |                               char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:342:30: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  342 |         uart_Rs232SendString("20.04.16 09:12:07  pH=  ");
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c:344:30: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  344 |         uart_Rs232SendString(" pH SS= ");
+      |                              ^~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c:346:30: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  346 |         uart_Rs232SendString(" mg/l CSB= ");
+      |                              ^~~~~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c:348:30: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  348 |         uart_Rs232SendString(" mg/l TMP= ");
+      |                              ^~~~~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c:350:30: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  350 |         uart_Rs232SendString(" C NH4= ");
+      |                              ^~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c:351:34: warning: passing argument 1 of 'uart_Rs232SendNumPercent' makes integer from pointer without a cast [-Wint-conversion]
+  351 |         uart_Rs232SendNumPercent(&NH4_value);
+      |                                  ^~~~~~~~~~
+      |                                  |
+      |                                  uint32_t * {aka long unsigned int *}
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:23:40: note: expected 'uint32_t' {aka 'long unsigned int'} but argument is of type 'uint32_t *' {aka 'long unsigned int *'}
+   23 | void uart_Rs232SendNumPercent(uint32_t num);
+      |                               ~~~~~~~~~^~~
+../Core/Src/main.c:352:30: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  352 |         uart_Rs232SendString(" mg/l NO3= ");
+      |                              ^~~~~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c:354:30: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  354 |         uart_Rs232SendString(" mg/l FLOW= ");
+      |                              ^~~~~~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c:356:30: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  356 |         uart_Rs232SendString(" m3/h \r\n");
+      |                              ^~~~~~~~~~~~
+      |                              |
+      |                              char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c:303:9: warning: unused variable 'i' [-Wunused-variable]
+  303 |     int i,adcValue;
+      |         ^
+In file included from ../Core/Src/main.c:37:
+../Core/Src/main.c: At top level:
+../Core/Inc/lcd.h:92:17: warning: inline function 'LCD_RD_DATA' declared but never defined
+   92 | inline uint16_t LCD_RD_DATA(void);
+      |                 ^~~~~~~~~~~
+../Core/Inc/lcd.h:91:13: warning: inline function 'LCD_WR_DATA' declared but never defined
+   91 | inline void LCD_WR_DATA(uint16_t data);
+      |             ^~~~~~~~~~~
+arm-none-eabi-gcc -o "Bai7_Uart_1_EMS.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\abc\stm32\kitv2\Bai7_Uart_1_EMS\STM32F407ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai7_Uart_1_EMS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai7_Uart_1_EMS.elf
+ 
+arm-none-eabi-size   Bai7_Uart_1_EMS.elf 
+arm-none-eabi-objdump -h -S  Bai7_Uart_1_EMS.elf  > "Bai7_Uart_1_EMS.list"
+arm-none-eabi-objcopy  -O binary  Bai7_Uart_1_EMS.elf  "Bai7_Uart_1_EMS.bin"
+   text	   data	    bss	    dec	    hex	filename
+  58040	    516	   2716	  61272	   ef58	Bai7_Uart_1_EMS.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai7_Uart_1_EMS.bin
+ 
+Finished building: Bai7_Uart_1_EMS.list
+ 
+
+01:40:10 Build Finished. 0 errors, 26 warnings. (took 897ms)
+

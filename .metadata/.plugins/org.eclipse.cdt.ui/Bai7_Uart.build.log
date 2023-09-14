@@ -1,0 +1,130 @@
+01:26:39 **** Incremental Build of configuration Debug for project Bai7_Uart ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:125:23: warning: pointer targets in passing argument 3 of 'lcd_StrCenter' differ in signedness [-Wpointer-sign]
+  125 |   lcd_StrCenter(0, 0, "Xin chao cac ban", WHITE, BLUE, 16, 0);
+      |                       ^~~~~~~~~~~~~~~~~~
+      |                       |
+      |                       char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:118:52: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  118 | void lcd_StrCenter(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc,uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                           ~~~~~~~~~^~~
+../Core/Src/main.c:126:23: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  126 |   lcd_ShowStr(30, 30, "Ten: Thinh", RED, YELLOW, 24, 0);
+      |                       ^~~~~~~~~~~~
+      |                       |
+      |                       char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:127:23: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  127 |   lcd_ShowStr(30, 60, "Nam sinh:", GREEN, BLACK, 24, 0);
+      |                       ^~~~~~~~~~~
+      |                       |
+      |                       char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:131:24: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  131 |   uart_Rs232SendString("Xin chao lop vdk");
+      |                        ^~~~~~~~~~~~~~~~~~
+      |                        |
+      |                        char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c: In function 'test_Adc':
+../Core/Src/main.c:238:24: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  238 |   lcd_ShowStr(10, 100, "Voltage:", RED, BLACK, 16, 0);
+      |                        ^~~~~~~~~~
+      |                        |
+      |                        char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:241:24: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  241 |   lcd_ShowStr(10, 120, "Current:", RED, BLACK, 16, 0);
+      |                        ^~~~~~~~~~
+      |                        |
+      |                        char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:244:24: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  244 |   lcd_ShowStr(10, 140, "Light:", RED, BLACK, 16, 0);
+      |                        ^~~~~~~~
+      |                        |
+      |                        char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:246:24: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  246 |   lcd_ShowStr(10, 160, "Resistor:", RED, BLACK, 16, 0);
+      |                        ^~~~~~~~~~~
+      |                        |
+      |                        char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c:248:24: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
+  248 |   lcd_ShowStr(10, 180, "Temperature:", RED, BLACK, 16, 0);
+      |                        ^~~~~~~~~~~~~~
+      |                        |
+      |                        char *
+In file included from ../Core/Src/main.c:37:
+../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
+      |                                         ~~~~~~~~~^~~
+../Core/Src/main.c: In function 'test_Uart1':
+../Core/Src/main.c:259:25: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  259 |    uart_Rs232SendString("Resistor: ");
+      |                         ^~~~~~~~~~~~
+      |                         |
+      |                         char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+../Core/Src/main.c:261:25: warning: pointer targets in passing argument 1 of 'uart_Rs232SendString' differ in signedness [-Wpointer-sign]
+  261 |    uart_Rs232SendString("\r\n");
+      |                         ^~~~~~
+      |                         |
+      |                         char *
+In file included from ../Core/Src/main.c:30:
+../Core/Inc/uart.h:17:36: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   17 | void uart_Rs232SendString(uint8_t* str);
+      |                           ~~~~~~~~~^~~
+In file included from ../Core/Src/main.c:37:
+../Core/Src/main.c: At top level:
+../Core/Inc/lcd.h:92:17: warning: inline function 'LCD_RD_DATA' declared but never defined
+   92 | inline uint16_t LCD_RD_DATA(void);
+      |                 ^~~~~~~~~~~
+../Core/Inc/lcd.h:91:13: warning: inline function 'LCD_WR_DATA' declared but never defined
+   91 | inline void LCD_WR_DATA(uint16_t data);
+      |             ^~~~~~~~~~~
+arm-none-eabi-gcc -o "Bai7_Uart.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\abc\stm32\kitv2\Bai7_Uart\STM32F407ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai7_Uart.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bai7_Uart.elf
+ 
+arm-none-eabi-size   Bai7_Uart.elf 
+arm-none-eabi-objdump -h -S  Bai7_Uart.elf  > "Bai7_Uart.list"
+arm-none-eabi-objcopy  -O binary  Bai7_Uart.elf  "Bai7_Uart.bin"
+   text	   data	    bss	    dec	    hex	filename
+  77168	    492	   2460	  80120	  138f8	Bai7_Uart.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bai7_Uart.bin
+ 
+Finished building: Bai7_Uart.list
+ 
+
+01:26:40 Build Finished. 0 errors, 13 warnings. (took 863ms)
+

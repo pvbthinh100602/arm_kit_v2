@@ -1,0 +1,10 @@
+ds3231.c:23:6:ds3231_init	8	static
+ds3231.c:34:6:ds3231_Write	32	static
+ds3231.c:38:6:ds3231_ReadTime	24	static
+ds3231.c:49:9:ds3231_GetHour	4	static
+ds3231.c:53:9:ds3231_GetMin	4	static
+ds3231.c:57:9:ds3231_GetSec	4	static
+ds3231.c:60:9:ds3231_GetDay	4	static
+ds3231.c:64:9:ds3231_GetDate	4	static
+ds3231.c:68:9:ds3231_GetMonth	4	static
+ds3231.c:72:9:ds3231_GetYear	4	static

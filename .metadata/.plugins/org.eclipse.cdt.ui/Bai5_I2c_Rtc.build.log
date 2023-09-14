@@ -1,83 +1,10 @@
-16:31:21 **** Incremental Build of configuration Debug for project Bai5_I2c_Rtc ****
+17:16:47 **** Incremental Build of configuration Debug for project Bai5_I2c_Rtc ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:168:23: warning: pointer targets in passing argument 3 of 'lcd_StrCenter' differ in signedness [-Wpointer-sign]
-  168 |   lcd_StrCenter(0, 0, "Xin chao cac ban", WHITE, BLUE, 16, 0);
-      |                       ^~~~~~~~~~~~~~~~~~
-      |                       |
-      |                       char *
-In file included from ../Core/Src/main.c:33:
-../Core/Inc/lcd.h:118:52: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
-  118 | void lcd_StrCenter(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc,uint16_t bc,uint8_t sizey,uint8_t mode);
-      |                                           ~~~~~~~~~^~~
-../Core/Src/main.c:169:23: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
-  169 |   lcd_ShowStr(30, 30, "Ten: Thinh", RED, YELLOW, 24, 0);
-      |                       ^~~~~~~~~~~~
-      |                       |
-      |                       char *
-In file included from ../Core/Src/main.c:33:
-../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
-  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
-      |                                         ~~~~~~~~~^~~
-../Core/Src/main.c:170:23: warning: pointer targets in passing argument 3 of 'lcd_ShowStr' differ in signedness [-Wpointer-sign]
-  170 |   lcd_ShowStr(30, 60, "Nam sinh:", GREEN, BLACK, 24, 0);
-      |                       ^~~~~~~~~~~
-      |                       |
-      |                       char *
-In file included from ../Core/Src/main.c:33:
-../Core/Inc/lcd.h:117:50: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
-  117 | void lcd_ShowStr(uint16_t x, uint16_t y,uint8_t *str,uint16_t fc, uint16_t bc,uint8_t sizey,uint8_t mode);
-      |                                         ~~~~~~~~~^~~
-../Core/Src/main.c:187:4: warning: implicit declaration of function 'test_Ds3231' [-Wimplicit-function-declaration]
-  187 |    test_Ds3231();
-      |    ^~~~~~~~~~~
-../Core/Src/main.c: At top level:
-../Core/Src/main.c:290:6: warning: conflicting types for 'test_Ds3231'
-  290 | void test_Ds3231(){
-      |      ^~~~~~~~~~~
-../Core/Src/main.c:187:4: note: previous implicit declaration of 'test_Ds3231' was here
-  187 |    test_Ds3231();
-      |    ^~~~~~~~~~~
-../Core/Src/main.c: In function 'test_Ds3231':
-../Core/Src/main.c:298:26: warning: implicit declaration of function 'ds3231_GetDay'; did you mean 'ds3231_GetSec'? [-Wimplicit-function-declaration]
-  298 |  lcd_ShowIntNum(20, 130, ds3231_GetDay(), 2, YELLOW, BLACK, 24);
-      |                          ^~~~~~~~~~~~~
-      |                          ds3231_GetSec
-../Core/Src/main.c:299:26: warning: implicit declaration of function 'ds3231_GetDate'; did you mean 'ds3231_GetSec'? [-Wimplicit-function-declaration]
-  299 |  lcd_ShowIntNum(70, 130, ds3231_GetDate(), 2, YELLOW, BLACK, 24);
-      |                          ^~~~~~~~~~~~~~
-      |                          ds3231_GetSec
-../Core/Src/main.c:301:27: warning: implicit declaration of function 'ds3231_GetMonth'; did you mean 'ds3231_GetMin'? [-Wimplicit-function-declaration]
-  301 |  lcd_ShowIntNum(110, 130, ds3231_GetMonth(), 2, YELLOW, BLACK, 24);
-      |                           ^~~~~~~~~~~~~~~
-      |                           ds3231_GetMin
-../Core/Src/main.c:303:27: warning: implicit declaration of function 'ds3231_GetYear'; did you mean 'ds3231_GetSec'? [-Wimplicit-function-declaration]
-  303 |  lcd_ShowIntNum(150, 130, ds3231_GetYear(), 4, YELLOW, BLACK, 24);
-      |                           ^~~~~~~~~~~~~~
-      |                           ds3231_GetSec
-In file included from ../Core/Src/main.c:33:
-../Core/Src/main.c: At top level:
-../Core/Inc/lcd.h:92:17: warning: inline function 'LCD_RD_DATA' declared but never defined
-   92 | inline uint16_t LCD_RD_DATA(void);
-      |                 ^~~~~~~~~~~
-../Core/Inc/lcd.h:91:13: warning: inline function 'LCD_WR_DATA' declared but never defined
-   91 | inline void LCD_WR_DATA(uint16_t data);
-      |             ^~~~~~~~~~~
-arm-none-eabi-gcc -o "Bai5_I2c_Rtc.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\abc\stm32\kitv2\Bai5_I2c_Rtc\STM32F407ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bai5_I2c_Rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bai5_I2c_Rtc.elf
- 
 arm-none-eabi-size   Bai5_I2c_Rtc.elf 
-arm-none-eabi-objdump -h -S  Bai5_I2c_Rtc.elf  > "Bai5_I2c_Rtc.list"
-arm-none-eabi-objcopy  -O binary  Bai5_I2c_Rtc.elf  "Bai5_I2c_Rtc.bin"
    text	   data	    bss	    dec	    hex	filename
   52692	     36	   2020	  54748	   d5dc	Bai5_I2c_Rtc.elf
 Finished building: default.size.stdout
  
-Finished building: Bai5_I2c_Rtc.bin
- 
-Finished building: Bai5_I2c_Rtc.list
- 
 
-16:31:22 Build Finished. 0 errors, 11 warnings. (took 801ms)
+17:16:47 Build Finished. 0 errors, 0 warnings. (took 235ms)
 

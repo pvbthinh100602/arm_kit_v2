@@ -1,0 +1,26 @@
+/*
+ * sensor.h
+ *
+ *  Created on: Sep 10, 2023
+ *      Author: phamv
+ */
+
+#ifndef INC_SENSOR_H_
+#define INC_SENSOR_H_
+
+#include "adc.h"
+
+extern uint16_t adc_receive[5];
+void sensor_init();
+
+void adc_Read();
+
+uint16_t adc_GetLight();
+
+uint16_t adc_GetVarResistor();
+
+float adc_GetVoltage();
+
+uint16_t adc_GetCurrent();
+
+#endif /* INC_SENSOR_H_ */

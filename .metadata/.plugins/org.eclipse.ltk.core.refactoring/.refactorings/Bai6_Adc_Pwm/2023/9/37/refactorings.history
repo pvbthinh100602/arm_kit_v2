@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Bai6_Adc_Pwm/Bai5_I2c_Rtc.ioc&apos; to &apos;Bai6_Adc_Pwm.ioc&apos;" description="Rename resource &apos;Bai5_I2c_Rtc.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Bai5_I2c_Rtc.ioc" name="Bai6_Adc_Pwm.ioc" stamp="1694701154619" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Bai6_Adc_Pwm/Bai5_I2c_Rtc.ioc&apos; to &apos;Bai6_Adc_Pwm.ioc&apos;" description="Rename resource &apos;Bai5_I2c_Rtc.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Bai5_I2c_Rtc.ioc" name="Bai6_Adc_Pwm.ioc" stamp="1694707061325" updateReferences="true"/>
+</session>

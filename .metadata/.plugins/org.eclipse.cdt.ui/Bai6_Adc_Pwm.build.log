@@ -1,0 +1,10 @@
+00:36:40 **** Incremental Build of configuration Debug for project Bai6_Adc_Pwm ****
+make -j16 all 
+arm-none-eabi-size   Bai6_Adc_Pwm.elf 
+   text	   data	    bss	    dec	    hex	filename
+  72480	    500	   2356	  75336	  12648	Bai6_Adc_Pwm.elf
+Finished building: default.size.stdout
+ 
+
+00:36:40 Build Finished. 0 errors, 0 warnings. (took 219ms)
+

@@ -9,6 +9,8 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="D:\abc\stm32\Bai12_EMS"/>
+			<item value="D:\abc\stm32\Bai8_ADC_0"/>
 			<item value="D:\abc\stm32\Bai10_TFT_LCD_1"/>
 			<item value="D:\abc\stm32\kitv2\Bai4_Lcd_Fsm"/>
 			<item value="D:\abc\stm32\PasswordDoor"/>

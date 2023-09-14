@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  12 .ARM.attributes 00000030  00000000  00000000  0002001c  2**0
                   CONTENTS, READONLY
- 13 .debug_info   00015e79  00000000  00000000  0002004c  2**0
+ 13 .debug_info   00015e5c  00000000  00000000  0002004c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00003274  00000000  00000000  00035ec5  2**0
+ 14 .debug_abbrev 0000325f  00000000  00000000  00035ea8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00001240  00000000  00000000  00039140  2**3
+ 15 .debug_aranges 00001240  00000000  00000000  00039108  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_ranges 000010b8  00000000  00000000  0003a380  2**3
+ 16 .debug_ranges 000010b8  00000000  00000000  0003a348  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  000232e0  00000000  00000000  0003b438  2**0
+ 17 .debug_macro  000232e0  00000000  00000000  0003b400  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00016f16  00000000  00000000  0005e718  2**0
+ 18 .debug_line   00016f16  00000000  00000000  0005e6e0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000cf8ef  00000000  00000000  0007562e  2**0
+ 19 .debug_str    000cf8ef  00000000  00000000  000755f6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000053  00000000  00000000  00144f1d  2**0
+ 20 .comment      00000053  00000000  00000000  00144ee5  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00004a98  00000000  00000000  00144f70  2**2
+ 21 .debug_frame  00004a98  00000000  00000000  00144f38  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -3477,9 +3477,9 @@ int main(void)
  800192a:	801a      	strh	r2, [r3, #0]
 	  button_Scan();
  800192c:	f7fe fddc 	bl	80004e8 <button_Scan>
-	  test_Ds3231();
- 8001930:	f000 f89c 	bl	8001a6c <test_Ds3231>
-  {
+	  displayTime();
+ 8001930:	f000 f89c 	bl	8001a6c <displayTime>
+	  while(!flag_timer2);
  8001934:	e7f2      	b.n	800191c <main+0x110>
  8001936:	bf00      	nop
  8001938:	08005240 	.word	0x08005240
@@ -3661,13 +3661,13 @@ void system_init(){
  8001a66:	bd80      	pop	{r7, pc}
  8001a68:	40021000 	.word	0x40021000
 
-08001a6c <test_Ds3231>:
+08001a6c <displayTime>:
 	if(button_count[7] == 1){
 		return 1;
 	} else return 0;
 }
 
-void test_Ds3231(){
+void displayTime(){
  8001a6c:	b580      	push	{r7, lr}
  8001a6e:	b084      	sub	sp, #16
  8001a70:	af04      	add	r7, sp, #16

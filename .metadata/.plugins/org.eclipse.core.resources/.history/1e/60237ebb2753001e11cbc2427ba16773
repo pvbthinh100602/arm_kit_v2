@@ -1,0 +1,21 @@
+/*
+ * uart.h
+ *
+ *  Created on: Sep 8, 2023
+ *      Author: phamv
+ */
+
+#ifndef INC_UART_H_
+#define INC_UART_H_
+
+#include "usart.h"
+#include <stdio.h>
+#include "utils.h"
+
+void uart_init();
+void uart_SendString(UART_HandleTypeDef *huart, uint8_t* str);
+void uart_SendBytes(UART_HandleTypeDef *huart, uint8_t* bytes, uint16_t size);
+void uart_SendNum(UART_HandleTypeDef *huart, uint32_t num);
+void uart_SendNumPercent(UART_HandleTypeDef *huart,uint32_t num);
+
+#endif /* INC_UART_H_ */

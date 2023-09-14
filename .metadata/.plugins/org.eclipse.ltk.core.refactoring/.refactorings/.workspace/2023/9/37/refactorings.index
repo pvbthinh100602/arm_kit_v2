@@ -11,3 +11,14 @@
 1694680635972	Delete 3 resources
 1694680671644	Delete resource 'Bai4_Lcd_Fsm_Flag/Bai4_Lcd_Fsm.launch'
 1694680683301	Delete 3 resources
+1694701097099	Delete resource 'Bai5_I2c_Rtc/Bai4_Lcd_Fsm.launch'
+1694701138150	Delete resource 'Bai6_Adc_Pwm/Bai5_I2c_Rtc.launch'
+1694701325264	Delete 8 resources
+1694707012174	Delete resource 'Bai6_Adc_Pwm'
+1694707066592	Delete resource 'Bai6_Adc_Pwm/Bai5_I2c_Rtc.launch'
+1694707080220	Delete 8 resources
+1694712968160	Delete resource 'Bai7_Uart/Bai6_Adc_Pwm.launch'
+1694712984738	Delete resource 'Bai7_Uart/Debug/Bai6_Adc_Pwm.map'
+1694713741068	Delete resource 'Bai7_Uart/uart.h'
+1694716261193	Delete resource 'Bai7_Uart_1_EMS/Bai7_Uart Debug.launch'
+1694716936152	Delete resource 'PasswordDoor2'

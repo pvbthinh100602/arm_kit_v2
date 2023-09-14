@@ -104,6 +104,7 @@ void test_button();
 uint8_t isButtonUp();
 uint8_t isButtonDown();
 void test_button();
+void displayTime();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -184,7 +185,7 @@ int main(void)
 	  while(!flag_timer2);
 	  flag_timer2 = 0;
 	  button_Scan();
-	  test_Ds3231();
+	  displayTime();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -287,7 +288,7 @@ uint8_t isButtonDown(){
 	} else return 0;
 }
 
-void test_Ds3231(){
+void displayTime(){
 	ds3231_ReadTime();
 	lcd_ShowIntNum(70, 100, ds3231_GetHour(), 2, GREEN, BLACK, 24);
 	lcd_ShowChar(95, 100, ':', WHITE, BLACK, 24, 0);
