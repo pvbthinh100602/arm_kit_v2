@@ -144,7 +144,7 @@ int main(void)
 	  button_Scan();
 	  test_LedDebug();
 	  test_Adc();
-	  buzzer_SetVolume((sensor_GetVarResistor()*100)/4095);
+	  buzzer_SetVolume((sensor_GetVarResistor()*50)/4095);
 	  buzzer_Ring();
     /* USER CODE END WHILE */
 
@@ -232,7 +232,6 @@ uint8_t isButtonDown(){
 }
 
 uint8_t count_adc = 0;
-char msg[50];
 
 void test_Adc(){
 	count_adc = (count_adc + 1)%20;
@@ -241,7 +240,6 @@ void test_Adc(){
 		lcd_ShowStr(10, 100, "Voltage:", RED, BLACK, 16, 0);
 //		lcd_ShowIntNum(130, 100, adc_receive[0], 4, RED, BLACK, 16);
 		lcd_ShowFloatNum1(130, 100,sensor_GetVoltage(), 4, RED, BLACK, 16);
-		lcd_ShowStr(130, 100, msg, RED, BLACK, 16, 0);
 		lcd_ShowStr(10, 120, "Current:", RED, BLACK, 16, 0);
 //		lcd_ShowIntNum(130, 120, adc_receive[1], 4, RED, BLACK, 16);
 		lcd_ShowFloatNum1(130, 120,sensor_GetCurrent(), 4, RED, BLACK, 16);

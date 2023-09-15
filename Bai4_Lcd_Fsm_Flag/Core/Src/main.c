@@ -41,48 +41,26 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-#define TIMEOUT 200
 
-// graphic position
-#define CX_GREEN1 160
-#define CY_GREEN1 94
-#define CX_RED1 160
-#define CY_RED1 40
-#define CX_YELLOW1 160
-#define CY_YELLOW1 67
-#define CX_GREEN2 30
-#define CY_GREEN2 264
-#define CX_RED2 30
-#define CY_RED2 210
-#define CX_YELLOW2 30
-#define CY_YELLOW2 237
-#define RADIUS 12
-
-// state
-
-#define INIT 0
-#define AUTO_GREEN1		1
-#define AUTO_YELLOW1	2
-#define AUTO_GREEN2 	3
-#define AUTO_YELLOW2 	4
-
-#define MANUAL_GREEN1	5
-#define MANUAL_YELLOW1 	6
-#define MANUAL_GREEN2	7
-#define MANUAL_YELLOW2	8
-
-#define TUNING_GREEN	9
-#define TUNING_YELLOW	10
-#define TUNING_RED		11
-
-#define TRAFFIC_LIGHT	1
-#define PASS_DOOR		2
-#define EMS				3
-#define CLOCK			4
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+
+// status
+
+#define     INIT_SYSTEM     30
+#define     MOVING_UP       80
+#define     MOVING_DOWN     160
+#define     STOP_MOVING     22
+#define     TOP_POSITION    33
+#define     BOTTOM_POSITION 44
+
+//position
+
+#define TOP 100
+#define BOT 200
+
 
 /* USER CODE END PM */
 
@@ -90,10 +68,8 @@
 
 /* USER CODE BEGIN PV */
 uint8_t count_led_debug = 0;
-uint8_t count_led_Y0 = 0;
-uint8_t count_led_Y1 = 0;
-
-uint16_t count_led7 = 0;
+uint8_t statusFlag = INIT_SYSTEM;
+uint16_t flag_position = BOT;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -101,24 +77,20 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void system_init();
 void test_LedDebug();
-void test_LedY0();
-void test_LedY1();
-void test_button();
 uint8_t isButtonUp();
 uint8_t isButtonDown();
-void test_button();
+uint8_t isButtonStop();
+uint8_t isBottomSwitch();
+uint8_t isTopSwitch();
+void FlagMovingDown();
+void FlagMovingUp();
+void FlagStopMoving();
+void BaiTap_Flag();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int traffic_status = INIT;
-int timeTraffic = 0;
-int timeGreen = 3;
-int timeYellow = 2;
-int timeRed = 5;
-int count1_s = 0;
-int timeout = 0;
-int toggle = 0;
+
 /* USER CODE END 0 */
 
 /**
@@ -174,7 +146,7 @@ int main(void)
   lcd_DrawCircle(150, 150, GBLUE, 30, 1);
   lcd_DrawCircle(120, 150, DARKBLUE, 30, 1);
   lcd_DrawCircle(90, 150, LBBLUE, 30, 1);
-  lcd_ShowPicture(70, 200, 97, 100, gImage_bk);
+//  lcd_ShowPicture(70, 200, 97, 100, gImage_bk);
   HAL_Delay(2000);
 
   /* USER CODE END 2 */
@@ -186,7 +158,7 @@ int main(void)
 	  while(!flag_timer2);
 	  flag_timer2 = 0;
 	  button_Scan();
-	  fsmTraffic();
+	  BaiTap_Flag();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -257,200 +229,136 @@ void test_LedDebug(){
 	}
 }
 
-void test_LedY0(){
-	count_led_Y0 = (count_led_Y0+ 1)%100;
-	if(count_led_Y0 > 40){
-		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 1);
-	} else {
-		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 0);
-	}
+uint8_t isButtonUp()
+{
+    if (button_count[3] == 1)
+        return 1;
+    else
+        return 0;
+}
+uint8_t isButtonDown()
+{
+    if (button_count[7] == 1)
+        return 1;
+    else
+        return 0;
+}
+uint8_t isButtonStop()
+{
+    if (button_count[11] == 1)
+        return 1;
+    else
+        return 0;
+}
+uint8_t isBottomSwitch()
+{
+    if (flag_position == BOT)
+        return 1;
+    else
+        return 0;
 }
 
-void test_LedY1(){
-	count_led_Y1 = (count_led_Y1+ 1)%40;
-	if(count_led_Y1 > 10){
-		HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
-	} else {
-		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y1_Pin, 1);
-	}
+uint8_t isTopSwitch()
+{
+    if (flag_position == TOP)
+        return 1;
+    else
+        return 0;
 }
 
-void test_button(){
-	for(int i = 0; i < 16; i++){
-		if(button_count[i] == 1){
-			led7_SetDigit(i/10, 2, 0);
-			led7_SetDigit(i%10, 3, 0);
-		}
-	}
-	if(isButtonUp()) {
-		count_led7 = (count_led7 + 1)%100;
-	}
-	if(isButtonDown()) {
-		if(count_led7 > 0) count_led7--;
-	}
-	led7_SetDigit(count_led7/10, 0, 0);
-	led7_SetDigit(count_led7%10, 1, 0);
+void FlagMovingDown()
+{
+	lcd_DrawLine(132, flag_position-1, 222, flag_position-1, 0x875c);
+	lcd_ShowPicture(132, flag_position, 90, 58, gImage_l_flag);
+	flag_position++;
+}
+void FlagMovingUp()
+{
+	lcd_DrawLine(132, flag_position+58, 222, flag_position+58, 0x875c);
+	lcd_ShowPicture(132, flag_position, 90, 58, gImage_l_flag);
+	flag_position--;
+}
+void FlagStopMoving()
+{
+	lcd_ShowPicture(132, flag_position, 90, 58, gImage_l_flag);
 }
 
-uint8_t isButtonUp(){
-	if(button_count[3] == 1 || (button_count[3] > 20 && button_count[3]%2 == 0)){
-		return 1;
-	} else return 0;
+void BaiTap_Flag()
+{
+    switch (statusFlag)
+    {
+        case INIT_SYSTEM:
+            statusFlag = BOTTOM_POSITION;
+            lcd_Clear(0x875c);
+            lcd_Fill(0, 0, 240, 20, BLUE);
+            lcd_ShowPicture(80, 100, 90, 209, gImage_c_flag);
+            break;
+        case MOVING_UP:
+        	lcd_StrCenter(0, 2, "   MOVING UP   ", WHITE, BLUE, 16, 0);
+        	FlagMovingUp();
+            if(isTopSwitch())
+            {
+                statusFlag = TOP_POSITION;
+
+            }
+            if(isButtonStop())
+            {
+                statusFlag = STOP_MOVING;
+
+            }
+            break;
+        case BOTTOM_POSITION:
+        	lcd_StrCenter(0, 2, "BOTTOM POSITION", WHITE, BLUE, 16, 0);
+        	FlagStopMoving();
+            if(isButtonUp())
+            {
+                statusFlag = MOVING_UP;
+
+            }
+            break;
+        case MOVING_DOWN:
+        	lcd_StrCenter(0, 2, "  MOVING DOWN  ", WHITE, BLUE, 16, 0);
+        	FlagMovingDown();
+            if(isBottomSwitch())
+            {
+                statusFlag = BOTTOM_POSITION;
+
+            }
+            if(isButtonStop())
+            {
+                statusFlag = STOP_MOVING;
+
+            }
+            break;
+        case TOP_POSITION:
+        	lcd_StrCenter(0, 2, "  TOP POSTION  ", WHITE, BLUE, 16, 0);
+        	FlagStopMoving();
+            if(isButtonDown())
+            {
+                statusFlag = MOVING_DOWN;
+
+            }
+            break;
+        case STOP_MOVING:
+        	lcd_StrCenter(0, 2, "  STOP MOVING  ", WHITE, BLUE, 16, 0);
+        	FlagStopMoving();
+            if(isButtonUp())
+            {
+                statusFlag = MOVING_UP;
+
+            }
+            if(isButtonDown())
+            {
+                statusFlag = MOVING_DOWN;
+
+            }
+            break;
+        default:
+            statusFlag = INIT_SYSTEM;
+            break;
+    }
 }
 
-uint8_t isButtonDown(){
-	if(button_count[7] == 1){
-		return 1;
-	} else return 0;
-}
-
-void phase1Green(){
-	lcd_DrawCircle(CX_GREEN1, CY_GREEN1, GREEN, RADIUS, 1);
-	lcd_DrawCircle(CX_RED1, CY_RED1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW1, CY_YELLOW1, 0x6351, RADIUS, 1);
-
-	lcd_DrawCircle(CX_GREEN2, CY_GREEN2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED2, CY_RED2, RED, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW2, CY_YELLOW2, 0x6351, RADIUS, 1);
-}
-
-void phase1Yellow(){
-	lcd_DrawCircle(CX_GREEN1, CY_GREEN1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED1, CY_RED1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW1, CY_YELLOW1, YELLOW, RADIUS, 1);
-
-	lcd_DrawCircle(CX_GREEN2, CY_GREEN2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED2, CY_RED2, RED, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW2, CY_YELLOW2, 0x6351, RADIUS, 1);
-}
-
-void phase2Green(){
-	lcd_DrawCircle(CX_GREEN2, CY_GREEN2, GREEN, RADIUS, 1);
-	lcd_DrawCircle(CX_RED2, CY_RED2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW2, CY_YELLOW2, 0x6351, RADIUS, 1);
-
-	lcd_DrawCircle(CX_GREEN1, CY_GREEN1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED1, CY_RED1, RED, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW1, CY_YELLOW1, 0x6351, RADIUS, 1);
-}
-
-void phase2Yellow(){
-	lcd_DrawCircle(CX_GREEN2, CY_GREEN2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED2, CY_RED2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW2, CY_YELLOW2, YELLOW, RADIUS, 1);
-
-	lcd_DrawCircle(CX_GREEN1, CY_GREEN1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED1, CY_RED1, RED, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW1, CY_YELLOW1, 0x6351, RADIUS, 1);
-}
-
-void fsmTraffic(){
-	switch(traffic_status){
-	case INIT:
-		traffic_status = AUTO_GREEN1;
-		lcd_Clear(BLACK);
-		lcd_Fill(0, 0, 240, 20, BLUE);
-		lcd_StrCenter(0, 0, "Traffic light", WHITE, BLUE, 16, 0);
-		lcd_Fill(0, 300, 240, 320, BLUE);
-
-		timeTraffic = timeGreen;
-		break;
-	case AUTO_GREEN1:
-		count1_s = (count1_s + 1)%20;
-		if(count1_s == 0) {
-			timeTraffic--;
-		}
-		phase1Green();
-		led7_SetDigit((timeTraffic + timeYellow)/10, 0, 0);
-		led7_SetDigit((timeTraffic + timeYellow)%10, 1, 0);
-		led7_SetDigit(timeTraffic/10, 2, 0);
-		led7_SetDigit(timeTraffic%10, 3, 0);
-
-		lcd_ShowIntNum(75, 50, timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(90, 50, timeTraffic%10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(15, 140 , (timeTraffic + timeYellow)/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(30, 140, (timeTraffic + timeYellow)%10, 1, RED, 0x47e8, 32);
-
-		lcd_StrCenter(0, 302, " GREEN1", WHITE, BLUE, 16, 0);
-
-		if(timeTraffic == 0){
-			traffic_status = AUTO_YELLOW1;
-			timeTraffic = timeYellow;
-		}
-		break;
-	case AUTO_YELLOW1:
-		count1_s = (count1_s + 1)%20;
-		if(count1_s == 0) {
-			timeTraffic--;
-		}
-		phase1Yellow();
-		led7_SetDigit(timeTraffic/10, 0, 0);
-		led7_SetDigit(timeTraffic%10, 1, 0);
-		led7_SetDigit(timeTraffic/10, 2, 0);
-		led7_SetDigit(timeTraffic%10, 3, 0);
-
-		lcd_ShowIntNum(75, 50, timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(90, 50, timeTraffic%10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(15, 140 , timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(30, 140, timeTraffic%10, 1, RED, 0x47e8, 32);
-
-
-		lcd_StrCenter(0, 302, "YELLOW1", WHITE, BLUE, 16, 0);
-
-		if(timeTraffic == 0){
-			traffic_status = AUTO_GREEN2;
-			timeTraffic = timeGreen;
-		}
-		break;
-	case AUTO_GREEN2:
-		count1_s = (count1_s + 1)%20;
-		if(count1_s == 0) {
-			timeTraffic--;
-		}
-		phase2Green();
-		led7_SetDigit(timeTraffic/10, 0, 0);
-		led7_SetDigit(timeTraffic%10, 1, 0);
-		led7_SetDigit((timeTraffic + timeYellow)/10, 2, 0);
-		led7_SetDigit((timeTraffic + timeYellow)%10, 3, 0);
-
-		lcd_ShowIntNum(75, 50, (timeTraffic + timeYellow)/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(90, 50, (timeTraffic + timeYellow)%10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(15, 140 , timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(30, 140, timeTraffic%10, 1, RED, 0x47e8, 32);
-
-		lcd_StrCenter(0, 302, " GREEN2", WHITE, BLUE, 16, 0);
-
-		if(timeTraffic == 0){
-			traffic_status = AUTO_YELLOW2;
-			timeTraffic = timeYellow;
-		}
-		break;
-	case AUTO_YELLOW2:
-		count1_s = (count1_s + 1)%20;
-		if(count1_s == 0) {
-			timeTraffic--;
-		}
-		phase2Yellow();
-		led7_SetDigit(timeTraffic/10, 0, 0);
-		led7_SetDigit(timeTraffic%10, 1, 0);
-		led7_SetDigit(timeTraffic/10, 2, 0);
-		led7_SetDigit(timeTraffic%10, 3, 0);
-
-		lcd_ShowIntNum(75, 50, timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(90, 50, timeTraffic%10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(15, 140 , timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(30, 140, timeTraffic%10, 1, RED, 0x47e8, 32);
-
-		lcd_StrCenter(0, 302, "YELLOW2", WHITE, BLUE, 16, 0);
-
-		if(timeTraffic == 0){
-			traffic_status = AUTO_GREEN1;
-			timeTraffic = timeGreen;
-		}
-		break;
-	}
-
-}
 /* USER CODE END 4 */
 
 /**

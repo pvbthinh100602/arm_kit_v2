@@ -41,49 +41,16 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-#define TIMEOUT 200
-
-// graphic position
-#define CX_GREEN1 160
-#define CY_GREEN1 94
-#define CX_RED1 160
-#define CY_RED1 40
-#define CX_YELLOW1 160
-#define CY_YELLOW1 67
-#define CX_GREEN2 30
-#define CY_GREEN2 264
-#define CX_RED2 30
-#define CY_RED2 210
-#define CX_YELLOW2 30
-#define CY_YELLOW2 237
-#define RADIUS 12
-
-// state
-
-#define INIT 0
-#define AUTO_GREEN1		1
-#define AUTO_YELLOW1	2
-#define AUTO_GREEN2 	3
-#define AUTO_YELLOW2 	4
-
-#define MANUAL_GREEN1	5
-#define MANUAL_YELLOW1 	6
-#define MANUAL_GREEN2	7
-#define MANUAL_YELLOW2	8
-
-#define TUNING_GREEN	9
-#define TUNING_YELLOW	10
-#define TUNING_RED		11
-
-#define TRAFFIC_LIGHT	1
-#define PASS_DOOR		2
-#define EMS				3
-#define CLOCK			4
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define INIT_SYSTEM		0
+#define LOCK_DOOR		6
+#define ENTER_PASSWORD	1
+#define UNLOCK_DOOR		3
+#define WRONG_PASSWORD	4
+#define CHECK_PASSWORD	5
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -94,6 +61,15 @@ uint8_t count_led_Y0 = 0;
 uint8_t count_led_Y1 = 0;
 
 uint16_t count_led7 = 0;
+
+unsigned char arrayMapOfNumber[10] = {13, 0, 1, 2, 4, 5, 6, 8, 9, 10 };
+unsigned char arrayMapOfPassword[4] = { 2, 2, 2, 2 };
+unsigned char arrayPassword[4] = { 0, 0, 0, 0 };
+uint16_t statusPassword = 0;
+uint16_t indexOfNumber = 0;
+uint16_t numberValue;
+uint16_t timeDelay = 0;
+uint8_t flag_open = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -101,24 +77,18 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void system_init();
 void test_LedDebug();
-void test_LedY0();
-void test_LedY1();
-void test_button();
-uint8_t isButtonUp();
-uint8_t isButtonDown();
-void test_button();
+void App_PasswordDoor();
+void UnlockDoor();
+void LockDoor();
+uint8_t isButtonEnter();
+uint16_t isButtonNumber();
+uint16_t checkPassword();
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int traffic_status = INIT;
-int timeTraffic = 0;
-int timeGreen = 3;
-int timeYellow = 2;
-int timeRed = 5;
-int count1_s = 0;
-int timeout = 0;
-int toggle = 0;
+
 /* USER CODE END 0 */
 
 /**
@@ -163,19 +133,7 @@ int main(void)
   led_Off(7);
   led_On(8);
 //  lcd_ShowBackground();
-  HAL_Delay(2000);
   lcd_Clear(BLACK);
-  HAL_Delay(1000);
-  lcd_Fill(0, 0, 240, 20, BLUE);
-  lcd_StrCenter(0, 0, "Xin chao cac ban", WHITE, BLUE, 16, 0);
-  lcd_ShowStr(30, 30, "Ten: Thinh", RED, YELLOW, 24, 0);
-  lcd_ShowStr(30, 60, "Nam sinh:", GREEN, BLACK, 24, 0);
-  lcd_ShowIntNum(150, 60, 2002, 4, BRED, BLACK, 24);
-  lcd_DrawCircle(150, 150, GBLUE, 30, 1);
-  lcd_DrawCircle(120, 150, DARKBLUE, 30, 1);
-  lcd_DrawCircle(90, 150, LBBLUE, 30, 1);
-  lcd_ShowPicture(70, 200, 97, 100, gImage_bk);
-  HAL_Delay(2000);
 
   /* USER CODE END 2 */
 
@@ -186,7 +144,7 @@ int main(void)
 	  while(!flag_timer2);
 	  flag_timer2 = 0;
 	  button_Scan();
-	  fsmTraffic();
+	  App_PasswordDoor();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -257,200 +215,124 @@ void test_LedDebug(){
 	}
 }
 
-void test_LedY0(){
-	count_led_Y0 = (count_led_Y0+ 1)%100;
-	if(count_led_Y0 > 40){
-		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 1);
-	} else {
-		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 0);
-	}
+uint16_t isButtonNumber() {
+	for (int i = 0; i < 10; i++)
+		if (button_count[arrayMapOfNumber[i]] == 1) {
+			numberValue = i;
+			return 1;
+		}
+	return 0;
 }
 
-void test_LedY1(){
-	count_led_Y1 = (count_led_Y1+ 1)%40;
-	if(count_led_Y1 > 10){
-		HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
-	} else {
-		HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y1_Pin, 1);
-	}
-}
-
-void test_button(){
-	for(int i = 0; i < 16; i++){
-		if(button_count[i] == 1){
-			led7_SetDigit(i/10, 2, 0);
-			led7_SetDigit(i%10, 3, 0);
+uint16_t checkPassword() {
+	for (int i = 0; i < 4; i++) {
+		if (arrayPassword[i] != arrayMapOfPassword[i]) {
+			return 0;
 		}
 	}
-	if(isButtonUp()) {
-		count_led7 = (count_led7 + 1)%100;
+	return 1;
+}
+
+void UnlockDoor() {
+	if(flag_open == 0){
+		lcd_ShowPicture(80, 90, 77, 130, gImage_door2);
+		lcd_ShowPicture(80, 90, 77, 130, gImage_door3);
+		lcd_ShowPicture(80, 90, 80, 135, gImage_door4);
+		lcd_ShowPicture(80, 90, 90, 138, gImage_door5);
+		lcd_ShowPicture(80, 90, 98, 138, gImage_door6);
+		flag_open = 1;
 	}
-	if(isButtonDown()) {
-		if(count_led7 > 0) count_led7--;
-	}
-	led7_SetDigit(count_led7/10, 0, 0);
-	led7_SetDigit(count_led7%10, 1, 0);
+	lcd_ShowPicture(80, 90, 112, 138, gImage_door7);
 }
 
-uint8_t isButtonUp(){
-	if(button_count[3] == 1 || (button_count[3] > 20 && button_count[3]%2 == 0)){
-		return 1;
-	} else return 0;
+void LockDoor() {
+	lcd_ShowPicture(80, 100, 77, 130, gImage_door1);
 }
 
-uint8_t isButtonDown(){
-	if(button_count[7] == 1){
-		return 1;
-	} else return 0;
+uint8_t isButtonEnter(){
+	if(button_count[12] == 1) return 1;
+	else return 0;
 }
 
-void phase1Green(){
-	lcd_DrawCircle(CX_GREEN1, CY_GREEN1, GREEN, RADIUS, 1);
-	lcd_DrawCircle(CX_RED1, CY_RED1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW1, CY_YELLOW1, 0x6351, RADIUS, 1);
-
-	lcd_DrawCircle(CX_GREEN2, CY_GREEN2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED2, CY_RED2, RED, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW2, CY_YELLOW2, 0x6351, RADIUS, 1);
-}
-
-void phase1Yellow(){
-	lcd_DrawCircle(CX_GREEN1, CY_GREEN1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED1, CY_RED1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW1, CY_YELLOW1, YELLOW, RADIUS, 1);
-
-	lcd_DrawCircle(CX_GREEN2, CY_GREEN2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED2, CY_RED2, RED, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW2, CY_YELLOW2, 0x6351, RADIUS, 1);
-}
-
-void phase2Green(){
-	lcd_DrawCircle(CX_GREEN2, CY_GREEN2, GREEN, RADIUS, 1);
-	lcd_DrawCircle(CX_RED2, CY_RED2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW2, CY_YELLOW2, 0x6351, RADIUS, 1);
-
-	lcd_DrawCircle(CX_GREEN1, CY_GREEN1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED1, CY_RED1, RED, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW1, CY_YELLOW1, 0x6351, RADIUS, 1);
-}
-
-void phase2Yellow(){
-	lcd_DrawCircle(CX_GREEN2, CY_GREEN2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED2, CY_RED2, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW2, CY_YELLOW2, YELLOW, RADIUS, 1);
-
-	lcd_DrawCircle(CX_GREEN1, CY_GREEN1, 0x6351, RADIUS, 1);
-	lcd_DrawCircle(CX_RED1, CY_RED1, RED, RADIUS, 1);
-	lcd_DrawCircle(CX_YELLOW1, CY_YELLOW1, 0x6351, RADIUS, 1);
-}
-
-void fsmTraffic(){
-	switch(traffic_status){
-	case INIT:
-		traffic_status = AUTO_GREEN1;
-		lcd_Clear(BLACK);
-		lcd_Fill(0, 0, 240, 20, BLUE);
-		lcd_StrCenter(0, 0, "Traffic light", WHITE, BLUE, 16, 0);
-		lcd_Fill(0, 300, 240, 320, BLUE);
-
-		timeTraffic = timeGreen;
+void App_PasswordDoor() {
+	switch (statusPassword) {
+	case INIT_SYSTEM:
+		lcd_ShowPicture(0, 0, 240, 320, gImage_bg);
+		statusPassword = LOCK_DOOR;
 		break;
-	case AUTO_GREEN1:
-		count1_s = (count1_s + 1)%20;
-		if(count1_s == 0) {
-			timeTraffic--;
-		}
-		phase1Green();
-		led7_SetDigit((timeTraffic + timeYellow)/10, 0, 0);
-		led7_SetDigit((timeTraffic + timeYellow)%10, 1, 0);
-		led7_SetDigit(timeTraffic/10, 2, 0);
-		led7_SetDigit(timeTraffic%10, 3, 0);
+	case LOCK_DOOR:
+		lcd_ShowPicture(17, 25, 206, 50, gImage_press1);
+		lcd_ShowPicture(107, 265, 30, 32, gImage_protect);
+		LockDoor();
 
-		lcd_ShowIntNum(75, 50, timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(90, 50, timeTraffic%10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(15, 140 , (timeTraffic + timeYellow)/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(30, 140, (timeTraffic + timeYellow)%10, 1, RED, 0x47e8, 32);
+		if (isButtonEnter()) {
+			indexOfNumber = 0;
+			timeDelay = 0;
+			statusPassword = ENTER_PASSWORD;
 
-		lcd_StrCenter(0, 302, " GREEN1", WHITE, BLUE, 16, 0);
+			lcd_Fill(30, 25, 210, 80, WHITE);		//clear text
+			lcd_Fill(30, 265, 210, 300, WHITE);		//clear protect
 
-		if(timeTraffic == 0){
-			traffic_status = AUTO_YELLOW1;
-			timeTraffic = timeYellow;
+			lcd_ShowPicture(17, 25, 206, 48, gImage_enterPW);
+			lcd_ShowPicture(17, 235, 206, 30, gImage_PW);
 		}
 		break;
-	case AUTO_YELLOW1:
-		count1_s = (count1_s + 1)%20;
-		if(count1_s == 0) {
-			timeTraffic--;
+	case ENTER_PASSWORD:
+		timeDelay++;
+
+		if (isButtonNumber()) {
+			lcd_ShowStr(70 + indexOfNumber * 30, 242, "*", BLACK, LIGHTGRAY, 16, 0);
+			arrayPassword[indexOfNumber] = numberValue;
+			indexOfNumber++;
+			timeDelay = 0;
 		}
-		phase1Yellow();
-		led7_SetDigit(timeTraffic/10, 0, 0);
-		led7_SetDigit(timeTraffic%10, 1, 0);
-		led7_SetDigit(timeTraffic/10, 2, 0);
-		led7_SetDigit(timeTraffic%10, 3, 0);
 
-		lcd_ShowIntNum(75, 50, timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(90, 50, timeTraffic%10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(15, 140 , timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(30, 140, timeTraffic%10, 1, RED, 0x47e8, 32);
+		if (indexOfNumber >= 4) {
+			statusPassword = CHECK_PASSWORD;
+		}
 
-
-		lcd_StrCenter(0, 302, "YELLOW1", WHITE, BLUE, 16, 0);
-
-		if(timeTraffic == 0){
-			traffic_status = AUTO_GREEN2;
-			timeTraffic = timeGreen;
+		if (timeDelay >= 100) {
+			statusPassword = LOCK_DOOR;
+			lcd_Fill(20, 20, 220, 300, WHITE);
 		}
 		break;
-	case AUTO_GREEN2:
-		count1_s = (count1_s + 1)%20;
-		if(count1_s == 0) {
-			timeTraffic--;
+	case CHECK_PASSWORD:
+		timeDelay = 0;
+		if (checkPassword()) {
+			statusPassword = UNLOCK_DOOR;
+			timeDelay = 0;
+		} else {
+			statusPassword = WRONG_PASSWORD;
 		}
-		phase2Green();
-		led7_SetDigit(timeTraffic/10, 0, 0);
-		led7_SetDigit(timeTraffic%10, 1, 0);
-		led7_SetDigit((timeTraffic + timeYellow)/10, 2, 0);
-		led7_SetDigit((timeTraffic + timeYellow)%10, 3, 0);
 
-		lcd_ShowIntNum(75, 50, (timeTraffic + timeYellow)/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(90, 50, (timeTraffic + timeYellow)%10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(15, 140 , timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(30, 140, timeTraffic%10, 1, RED, 0x47e8, 32);
-
-		lcd_StrCenter(0, 302, " GREEN2", WHITE, BLUE, 16, 0);
-
-		if(timeTraffic == 0){
-			traffic_status = AUTO_YELLOW2;
-			timeTraffic = timeYellow;
+		break;
+	case UNLOCK_DOOR:
+		timeDelay++;
+		UnlockDoor();
+		if (timeDelay >= 100) {
+			statusPassword = LOCK_DOOR;
+			lcd_Fill(20, 20, 220, 300, WHITE);
 		}
 		break;
-	case AUTO_YELLOW2:
-		count1_s = (count1_s + 1)%20;
-		if(count1_s == 0) {
-			timeTraffic--;
+	case WRONG_PASSWORD:
+		timeDelay++;
+		lcd_ShowPicture(17, 25, 206, 53, gImage_wrongPW);
+		lcd_ShowPicture(17, 235, 206, 30, gImage_PW);
+		lcd_ShowPicture(17, 265, 206, 28, gImage_wrong);
+
+		statusPassword = ENTER_PASSWORD;
+		indexOfNumber = 0;
+
+		if (timeDelay >= 100) {
+			statusPassword = LOCK_DOOR;
 		}
-		phase2Yellow();
-		led7_SetDigit(timeTraffic/10, 0, 0);
-		led7_SetDigit(timeTraffic%10, 1, 0);
-		led7_SetDigit(timeTraffic/10, 2, 0);
-		led7_SetDigit(timeTraffic%10, 3, 0);
 
-		lcd_ShowIntNum(75, 50, timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(90, 50, timeTraffic%10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(15, 140 , timeTraffic/10, 1, RED, 0x47e8, 32);
-		lcd_ShowIntNum(30, 140, timeTraffic%10, 1, RED, 0x47e8, 32);
-
-		lcd_StrCenter(0, 302, "YELLOW2", WHITE, BLUE, 16, 0);
-
-		if(timeTraffic == 0){
-			traffic_status = AUTO_GREEN1;
-			timeTraffic = timeGreen;
-		}
+		break;
+	default:
 		break;
 	}
-
 }
+
 /* USER CODE END 4 */
 
 /**

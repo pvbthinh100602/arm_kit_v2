@@ -602,11 +602,6 @@ void DrawTestPage(uint8_t *str)
 	lcd_Fill(0,20,lcddev.width,lcddev.height-20,BLACK);
 }
 
-void lcd_ShowBackground(){
-	  DrawTestPage("Test Kit");
-	  lcd_ShowPicture(0, 20, 240, 280, gImage_traffic);
-}
-
 void lcd_Display(){
 	uint16_t i,j;
 	uint8_t buffer[2];
