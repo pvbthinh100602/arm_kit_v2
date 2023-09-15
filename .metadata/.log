@@ -660,3 +660,15 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2023-09-15 17:30:45.627
 !MESSAGE Indexed 'Flag' (31 sources, 113 headers) in 1.72 sec: 9,742 declarations; 49,466 references; 2 unresolved inclusions; 42 syntax errors; 147 unresolved names (0.25%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-09-15 21:37:29.703
+!MESSAGE Indexed 'Bai7_Uart_2_Sim' (48 sources, 130 headers) in 2.09 sec: 11,748 declarations; 71,763 references; 2 unresolved inclusions; 42 syntax errors; 147 unresolved names (0.18%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-09-15 21:52:15.240
+!MESSAGE Indexed 'Sim' (46 sources, 130 headers) in 2.73 sec: 11,840 declarations; 73,399 references; 2 unresolved inclusions; 42 syntax errors; 147 unresolved names (0.17%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-09-15 22:50:37.964
+!MESSAGE Indexed 'Bai8_RcServo' (48 sources, 130 headers) in 2.38 sec: 11,701 declarations; 71,644 references; 2 unresolved inclusions; 42 syntax errors; 147 unresolved names (0.18%)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2023-09-15 23:39:14.111
+!MESSAGE Won't launch debug session since we failed to locate the binary.

@@ -350,7 +350,6 @@ void BaiTap_Flag()
             if(isButtonDown())
             {
                 statusFlag = MOVING_DOWN;
-
             }
             break;
         default:

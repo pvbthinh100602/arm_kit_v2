@@ -1,0 +1,10 @@
+22:09:42 **** Incremental Build of configuration Debug for project Bai7_Uart_2_Sim ****
+make -j16 all 
+arm-none-eabi-size   Bai7_Uart_2_Sim.elf 
+   text	   data	    bss	    dec	    hex	filename
+  54840	    492	   2516	  57848	   e1f8	Bai7_Uart_2_Sim.elf
+Finished building: default.size.stdout
+ 
+
+22:09:43 Build Finished. 0 errors, 0 warnings. (took 360ms)
+

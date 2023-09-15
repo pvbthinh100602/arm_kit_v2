@@ -1,0 +1,2 @@
+sim.c:10:6:sim_init	8	static
+sim.c:15:6:sim_SendSMS	16	static

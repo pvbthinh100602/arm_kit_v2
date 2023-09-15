@@ -1,0 +1,14 @@
+/*
+ * servo.c
+ *
+ *  Created on: Sep 15, 2023
+ *      Author: phamv
+ */
+
+#include "servo.h"
+
+uint8_t counter_servo = 0;
+
+void servo_init(){
+	HAL_GPIO_WritePin(SERVO_GPIO_Port, SERVO_Pin, 1);
+}
